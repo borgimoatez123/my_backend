@@ -10,5 +10,5 @@ router.get('/all', orderController.getAllOrders);
 
 // Route to delete an order by ID
 router.delete('/del/:id', orderController.removeOrder);
-
+router.patch('/update/:id/deliver', orderController.updateDeliveryStatus);
 module.exports = router;
