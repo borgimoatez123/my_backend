@@ -11,14 +11,15 @@ exports.createOrder = async (req, res) => {
           phone: req.body.phone,
           name: req.body.name,
           address: req.body.address,
-          priceTotal: req.body.priceTotal
+          priceTotal: req.body.priceTotal,
+          deliveryStatus: req.body.deliveryStatus || 'Pending'  // Allows overriding the default status
       });
 
       await newOrder.save();
       res.status(201).send(newOrder);
   } catch (error) {
       console.error("Error creating order:", error);
-      res.status(500).send(error);
+      res.status(500). send(error);
   }
 };
 
@@ -49,3 +50,27 @@ exports.removeOrder = async (req, res) => {
     res.status(500).send(error);
   }
 };
+
+
+// Function to update delivery status to 'Delivered'
+exports.updateDeliveryStatus = async (req, res) => {
+    const orderId = req.params.id;
+
+    try {
+        const updatedOrder = await Order.findByIdAndUpdate(
+            orderId,
+            { deliveryStatus: 'Delivered' },
+            { new: true }  // Ensures that the updated document is returned
+        );
+
+        if (!updatedOrder) {
+            return res.status(404).send({ message: 'Order not found!' });
+        }
+
+        res.status(200).send(updatedOrder);
+    } catch (error) {
+        console.error("Error updating delivery status:", error);
+        res.status(500).send(error);
+    }
+};
+
