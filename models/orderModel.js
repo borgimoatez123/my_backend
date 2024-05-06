@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 
 const orderItemSchema = new mongoose.Schema({
@@ -36,6 +35,11 @@ const orderSchema = new mongoose.Schema({
   priceTotal: {
     type: Number,
     required: true
+  },
+  deliveryStatus: {
+    type: String,
+    required: true,
+    default: 'Pending'  // Default value for delivery status
   }
 });
 
