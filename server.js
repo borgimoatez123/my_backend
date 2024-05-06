@@ -1,12 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const cheeseRoutes = require('./routes/cheeseRoutes');
 const userRoutes = require('./routes/userRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 // App configuration
 const app = express();
 const port = 4000;  // Ensure this is the port you want to use
-
+app.use(cors());
 // Middlewares
 app.use(express.json());
 
